@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>文本溢出省略号处理方式</title>
+	<style type="text/css">
+		span {
+			width: 350px;
+			display: inline-block;
+		}
+		.text-overflow {
+			overflow: hidden;
+			text-overflow: ellipsis; /*显示省略符号来代表被修剪的文本。*/
+			white-space: nowrap; /*文本不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。*/
+		}
+		.text-overflow:hover {
+			white-space: pre-wrap; /*保留空白符序列，但是正常地进行换行。*/
+		}
+	</style>
+</head>
+<body>
+<span class="text-overflow">Universal Sketch Pattern Salons / Barbers / Home use Hair Cut Hairdressing Gown Cape Cloth Protector</span>
+</body>
+</html>
