@@ -29,7 +29,7 @@
 
 所以，如果要实现之前我们提出的 “上传完一张图片后，隐藏按钮”，就可以把对应js代码绑在`change`事件上了。  
 
-[详细见demo](./code/input-file.html)  
+[详细见demo，内附base64缩略图生成方法](./code/input-file.html)  
 
 #### 3. `<input>` change事件 
 `change` 事件在表单元素`<input>` `<select>` 经常使用。但它的机制并不是简单的`值改变`就触发。  
