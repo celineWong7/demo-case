@@ -1,6 +1,6 @@
 # demo-case
 一些特殊样式、特殊处理的小demo整合
-#### 1. 文字溢出的处理：text-flow属性
+## 1. 文字溢出的处理：text-flow属性
 
 我们经常遇到大段文字在显示的时候，希望只显示部分，其他先用省略号（或其他）表示，当点击“查看详情”或者是点击省略号显示剩余的文本。这个时候可以考虑用CSS中的text-flow属性来实现。注意要结合white-space属性一起使用。
 ```
@@ -14,7 +14,7 @@
 [详细见demo](./code/text-overflow.html)  
 
 
-#### 2. `<input type="file">` 触发事件顺序
+## 2. `<input type="file">` 触发事件顺序
 `<input type="file">` 是用以文件上传的标签。她的显示结果如下：  
 <input type="file">   
 
@@ -31,7 +31,7 @@
 
 [详细见demo，内附base64缩略图生成方法](./code/input-file.html)  
 
-#### 3. `<input>` change事件 
+## 3. `<input>` change事件 
 `change` 事件在表单元素`<input>` `<select>` 经常使用。但它的机制并不是简单的`值改变`就触发。  
 `change` 触发过程主要如下：
 
@@ -67,7 +67,7 @@ $("input").update("newValue");
 ```  
 
 
-#### 3. for循环中出现异步函数，回调引用的循环变量不能保持当前值。
+## 4. for循环中出现异步函数，回调引用的循环变量不能保持当前值。
 
 直接用一个具体事例说明：
 ```javascript
