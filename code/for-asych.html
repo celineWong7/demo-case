@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>for循环出现异步函数，回调函数引用的循环值</title>
+        <script src="jquery-2.0.3.min.js"></script>
+    </head>
+    <body>
+
+        <script type="text/javascript">
+            var ary = ['one', 'two', 'three'];
+
+            // for(var i=0; i<ary.length; i++ ) {
+            //     // 延时器里的函数变成了异步函数
+            //     setTimeout(function(){
+            //         document.write(i + ' : ' + ary[i] + '<br>');
+            //     },500);
+            // }
+
+
+            /** 方法1 自执行函数 */
+            // for(var i=0; i<ary.length; i++ ) {
+            //     // 通过自执行函数传参（匿名函数），这样就形成了不受外界变量影响的局部作用域
+            //     (function(i){
+            //         // 延时器里的函数变成了异步函数
+            //         setTimeout(function(){
+            //             document.write(i + ' : ' + ary[i] + '<br>');
+            //         },500);
+
+            //     })(i)
+
+            // }
+
+            /** 方法2 jq的each方法代替for循环（需要引入jQuery库文件） */
+            $.each(ary, function(key, value){
+                // 延时器里的函数变成了异步函数
+                setTimeout(function(){
+                    document.write(key + ' : ' + value + '<br>');
+                },500);
+            });
+
+        </script>
+    </body>
+</html>

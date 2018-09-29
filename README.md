@@ -65,3 +65,69 @@
 // 调用插件
 $("input").update("newValue");
 ```  
+
+
+#### 3. for循环中出现异步函数，回调引用的循环变量不能保持当前值。
+
+直接用一个具体事例说明：
+```javascript
+    var ary = ['one', 'two', 'three'];
+
+    for(var i=0; i<ary.length; i++ ) {
+        // 延时器里的函数变成了异步函数
+        setTimeout(function(){
+            document.write(i + ' : ' + ary[i] + '<br>');
+        },500);
+    }
+```
+
+输出结果：
+```
+3 : undefined
+3 : undefined
+3 : undefined
+```
+for循环是同步任务，当延时器要执行document.write()的时候，for循环早就结束了（当i=3，for循环结束），所以i都等于3，对应的数组元素都为undefined的。
+如果希望得到i=1,2,3这种方式，可以采取以下两种方式。
+
+1. 解决方法1
+```javascript
+    /** 方法1 自执行函数 */
+    for(var i=0; i<ary.length; i++ ) {
+        // 通过自执行函数传参（匿名函数），这样就形成了不受外界变量影响的局部作用域
+        (function(i){
+            // 延时器里的函数变成了异步函数
+            setTimeout(function(){
+                document.write(i + ' : ' + ary[i] + '<br>');
+            },500);
+
+        })(i)
+    }
+```
+
+输出结果：
+```
+0 : one
+1 : two
+2 : three
+```
+
+2. 解决方法2
+```javascript
+    /** 方法2 jq的each方法代替for循环（需要引入jQuery库文件） */
+    $.each(ary, function(key, value){
+        // 延时器里的函数变成了异步函数
+        setTimeout(function(){
+            document.write(key + ' : ' + value + '<br>');
+        },500);
+    });
+```
+
+输出结果：
+```
+0 : one
+1 : two
+2 : three
+```
+
+[详细见demo](./code/for-asych.html)  
