@@ -146,7 +146,7 @@ str.replace(/\n/g, "<br/>");
 具体可以查看此篇[JavaScript 里Number、parseFloat、parseInt的联系与区别](https://www.jianshu.com/p/55a54abdaef8)。
 此处只给出比较表格和demo。  
 
-![三种方法的比较](../iamges/Number-parseInt.png)
+![三种方法的比较](../images/Number-parseInt.png)
 
 [详细见demo](./code/toNumber.html) 
 
