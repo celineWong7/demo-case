@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Number、parseFloat、parseInt的联系与区别</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	var test1= new Boolean(true);
+	var test2= new Boolean(false);
+	var test3= new Date();
+	var test4= new String(" 999");
+	var test5= new String("999 888");
+	var test6= new String("999abc888");
+	var test7= new String("999.88");
+	var test8= new String("999.88.777");
+	var test9= new String("-999");
+	var test10= "";
+	var test11= "   	";
+	var test12 = '0xf';
+	var test13 = '010';
+
+	var test20= null;
+	var test21= undefined;
+
+	var test30 = {id:'001', name: 'celine'};
+
+	var test40 = '10';
+	var test41 = 'AF';
+
+
+	document.write('<table border="1">');
+	document.write('<thead><th>原值数据类型</th><th>原值</th><th>Number方法处理后结果</th><th>parseInt方法处理后结果</th><th>parseFloat方法处理后结果</th></thead>');
+	document.write('<tbody>');
+
+	document.write("<tr style='background:#f1fcf7;'><td>Boolean</td><td>" + test1 + "</td><td>" + Number(test1) + "</td><td>" + parseInt(test1) + "</td><td>" + parseFloat(test1) + "</td></tr>");
+	document.write("<tr style='background:#f1fcf7;'><td>Boolean</td><td>" + test2 + "</td><td>" + Number(test2) + "</td><td>" + parseInt(test2) + "</td><td>" + parseFloat(test2) + "</td></tr>");
+	document.write("<tr><td>Date</td><td>" + test3 + "</td><td>" + Number(test3) + "</td><td>" + parseInt(test3) + "</td><td>" + parseFloat(test3) + "</td></tr>");
+	document.write("<tr><td>String</td><td>" + test4 + "</td><td>" + Number(test4) + "</td><td>" + parseInt(test4) + "</td><td>" + parseFloat(test4) + "</td></tr>");
+	document.write("<tr><td>String</td><td>" + test5 + "</td><td>" + Number(test5) + "</td><td>" + parseInt(test5) + "</td><td>" + parseFloat(test5) + "</td></tr>");
+	document.write("<tr><td>String</td><td>" + test6 + "</td><td>" + Number(test6) + "</td><td>" + parseInt(test6) + "</td><td>" + parseFloat(test6) + "</td></tr>");
+	document.write("<tr><td>String</td><td>" + test7 + "</td><td>" + Number(test7) + "</td><td>" + parseInt(test7) + "</td><td>" + parseFloat(test7) + "</td></tr>");
+	document.write("<tr><td>String</td><td>" + test8 + "</td><td>" + Number(test8) + "</td><td>" + parseInt(test8) + "</td><td>" + parseFloat(test8) + "</td></tr>");
+	document.write("<tr><td>String</td><td>" + test9 + "</td><td>" + Number(test9) + "</td><td>" + parseInt(test9) + "</td><td>" + parseFloat(test9) + "</td></tr>");
+	document.write("<tr style='background:#f1fcf7;'><td>String </td><td>" + test10 + "空字符（不包含任何字符）</td><td>" + Number(test10) + "</td><td>" + parseInt(test10) + "</td><td>" + parseFloat(test10) + "</td></tr>");
+	document.write("<tr><td>String </td><td>" + test11 + "空字符（包含空格）</td><td>" + Number(test11) + "</td><td>" + parseInt(test11) + "</td><td>" + parseFloat(test11) + "</td></tr>");
+	document.write("<tr><td>String</td><td>" + test12 + "（十六进制）</td><td>" + Number(test12) + "</td><td>" + parseInt(test12) + "</td><td>" + parseFloat(test12) + "</td></tr>");
+	document.write("<tr><td>String</td><td>" + test13 + "（模拟八进制）</td><td>" + Number(test13) + "</td><td>" + parseInt(test13) + "</td><td>" + parseFloat(test13) + "</td></tr>");
+
+	document.write("<tr><td>Null</td><td>" + test20 + "</td><td>" + Number(test20) + "</td><td>" + parseInt(test20) + "</td><td>" + parseFloat(test20) + "</td></tr>");
+	document.write("<tr><td>Undefined</td><td>" + test21 + "</td><td>" + Number(test21) + "</td><td>" + parseInt(test21) + "</td><td>" + parseFloat(test21) + "</td></tr>");
+
+	document.write("<tr><td>Object</td><td>{id:'001', name: 'celine'}</td><td>" + Number(test30) + "</td><td>" + parseInt(test30) + "</td><td>" + parseFloat(test30) + "</td></tr>");
+
+	document.write("<tr><td>String</td><td>" + test40 + "（转换二进制）</td><td>" + Number(test40) + "</td><td style='background:pink;'>parseInt('10',2) -> " + parseInt(test40,2) + "</td><td>" + parseFloat(test40) + "</td></tr>");
+	document.write("<tr><td>String</td><td>" + test41 + "（转换十六进制）</td><td>" + Number(test41) + "</td><td style='background:pink;'>parseInt('AF',16) -> " + parseInt(test41,16) + "</td><td>" + parseFloat(test41) + "</td></tr>");
+
+
+	document.write('</tbody></table>');
+
+</script>
+
+</body>
+</html>
