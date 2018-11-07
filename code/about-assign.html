@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>数组的浅拷贝和深拷贝</title>
+</head>
+<body>
+<script src="jquery-2.0.3.min.js"></script>
+<script>
+// JavaSCript中的数据类型分为：原始类型（number/string/boolean/null/undefined）和引用类型（array/object）
+
+// 1. 原始类型：简单的值复制，变量分别有自己的内存空间，互相不会影响
+var a = 100;
+var b = a;
+a = 102;
+console.log(a); // 102
+console.log(b); // 100
+
+
+// 2. 引用类型：复制的是内存地址，相当于ary1和ary2指向同一片内存区域，改变ary1也会改变ary2. 所谓的浅拷贝。
+var ary1 = [1,2,3,4];
+var ary2 = ary1;
+ary1.push(66);
+console.log(ary1); // [1,2,3,4,66]
+console.log(ary2); // [1,2,3,4,66]
+
+// 3. 实现数组的深拷贝
+// （1）巧用slice() 和 concat() 实现一维数组的深拷贝（多维数组无效）
+// arrayObj.slice(start,[end]) 截取数组，返回截取后的新数组
+var ary3 = [1,2,3];
+var ary4 = ary3.slice(0);
+ary3[0] = 99;
+console.log(ary3); // [99, 2, 3]
+console.log(ary4); // [1, 2, 3]
+
+
+// arrayObject.concat(arrayX,arrayX,......,arrayX) 连接多个数组，返回一个新数组
+var ary5 = [88,99];
+var ary6 = ary5.concat();
+ary5.pop();
+console.log(ary5); // [88]
+console.log(ary6); // [88,99]
+
+//（2）for循环遍历: 这个好理解，就是一一赋值。多维数组的深拷贝也可以用嵌套for循环上线。
+var ary7 = [1,2,3,4];
+var ary8 = [];
+for(var i=0;i<ary7.length;i++){
+	ary8[i] = ary7[i]
+}
+ary7.push(100);
+console.log(ary7); // [1, 2, 3, 4, 100]
+console.log(ary8); // [1, 2, 3, 4]
+
+//（3）JSON.stringify()/JSON.parse()：这种方式相当于是把原数组转成字符串类型，之后再解析。
+// 这种方法的缺陷在于：无法复制函数；丢失原型链（对象就丢失所属的类）。
+var ary9 = [1,2,3];
+var ary10 = JSON.parse(JSON.stringify(ary9));
+ary9.push(100);
+console.log(ary9); // [1, 2, 3, 100]
+console.log(ary10); // [1, 2, 3]
+
+// JSON转串的方式，对于多维数组也有效
+var ary99 = [1,2,3,['a','b']];
+var ary100 = JSON.parse(JSON.stringify(ary99));
+ary99.push(100);
+console.log(ary99); // [1, 2, 3,['a','b'], 100]
+console.log(ary100); // [1, 2, 3,,['a','b']]
+
+
+//（4）jQuery方式
+//$.extend([deep], target, object1 [, objectN ]) 可以运用于数组，也可以运用于对象
+var ary11 = [1,2,3];
+var ary12=[];
+$.extend(true,ary12,ary11);
+// var ary12 = $.extend(true,[],ary11); // 作用同上面两个
+ary11.push(99);
+console.log(ary11);
+console.log(ary12);
+
+
+
+//（5）递归方法实现多维数组 or 对象的深度拷贝。
+function deepCopy(obj) {
+　　var out = (obj.constructor === Array) ? [] : {};
+　　for (var i in obj) {
+　　　　if (typeof obj[i] === 'object') {
+　　　　　　out[i] = (obj[i].constructor === Array) ? [] : {};
+　　　　　　out[i] = deepCopy(obj[i]);
+　　　　} else {
+　　　　　　　out[i] = obj[i];
+　　　　}
+　　}
+　　return out;
+}
+
+var obj = {
+	name:'celine',
+	age:'22',
+	address:{
+		country: 'China',
+		province:'Fujian',
+		city:'Amoy'
+	}
+}
+
+var obj2 = deepCopy(obj);
+obj.name = 'Wang Xiaolin';
+obj.address.city = 'Quanzhou';
+console.log(obj);
+console.log(obj2);
+</script>
+
+
+
+
+
+</body>
+</html>
