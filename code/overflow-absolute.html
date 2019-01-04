@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>当overflow遇上absolute</title>
+	<style type="text/css">
+		.outer {
+			width: 500px;
+			height: 200px;
+			border:2px solid red;
+		}
+		.outer p {
+			background-color: #d8d8d8;
+		}
+		.outer span {
+			width: 50px;
+			background-color: pink;
+			text-align: center;
+		}
+		.outer span:hover {
+			cursor: pointer;
+		}
+
+		.outer {
+			overflow:hidden;
+		}
+		.outer p {
+			position: relative;
+		}
+		.outer span {
+			position: absolute;
+			z-index: 12;
+		}
+	</style>
+</head>
+<body>
+<p>在项目中有遇到，复选框因为样式需要，所以对原来的input[type='checkbox']进行absolute。<br/>
+我对其父元素div进行overflow：hidden的时候，发现absolute依旧会占据页面控件，而且眼睛看不见的元素，鼠标却能感应到，若有点击事件，点击也能触发。<br/>
+可惜在这里不知道怎么的无法重现。
+</p>
+<div class="outer">
+	<p>.<span>1</span></p>
+	<p>.<span>2</span></p>
+	<p>.<span>3</span></p>
+	<p>.<span>4</span></p>
+	<p>.<span>5</span></p>
+	<p>.<span>6</span></p>
+	<p>.<span>7</span></p>
+	<p>.<span>8</span></p>
+	<p>.<span>9</span></p>
+	<p>.<span>10</span></p>
+		<p>.<span>1</span></p>
+	<p>.<span>2</span></p>
+	<p>.<span>3</span></p>
+	<p>.<span>4</span></p>
+	<p>.<span>5</span></p>
+	<p>.<span>6</span></p>
+	<p>.<span>7</span></p>
+	<p>.<span>8</span></p>
+	<p>.<span>9</span></p>
+	<p>.<span>10</span></p>
+		<p>.<span>1</span></p>
+	<p>.<span>2</span></p>
+	<p>.<span>3</span></p>
+	<p>.<span>4</span></p>
+	<p>.<span>5</span></p>
+	<p>.<span>6</span></p>
+	<p>.<span>7</span></p>
+	<p>.<span>8</span></p>
+	<p>.<span>9</span></p>
+	<p>.<span>10</span></p>
+		<p>.<span>1</span></p>
+	<p>.<span>2</span></p>
+	<p>.<span>3</span></p>
+	<p>.<span>4</span></p>
+	<p>.<span>5</span></p>
+	<p>.<span>6</span></p>
+	<p>.<span>7</span></p>
+	<p>.<span>8</span></p>
+	<p>.<span>9</span></p>
+	<p>.<span>10</span></p>
+		<p>.<span>1</span></p>
+	<p>.<span>2</span></p>
+	<p>.<span>3</span></p>
+	<p>.<span>4</span></p>
+	<p>.<span>5</span></p>
+	<p>.<span>6</span></p>
+	<p>.<span>7</span></p>
+	<p>.<span>8</span></p>
+	<p>.<span>9</span></p>
+	<p>.<span>10</span></p>
+</div>
+<script src="./jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+$(".outer").on("click", "span", function(){
+	alert($(this).text());
+});
+	
+</script>
+
+</body>
+</html>

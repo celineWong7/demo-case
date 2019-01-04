@@ -11,7 +11,7 @@
 }
 ```
 
-[详细见demo](./code/text-overflow.html)  
+[详细见demo](./code/demo1-text-overflow.html)  
 
 
 ## 2. `<input type="file">` 触发事件顺序
@@ -29,7 +29,7 @@
 
 所以，如果要实现之前我们提出的 “上传完一张图片后，隐藏按钮”，就可以把对应js代码绑在`change`事件上了。  
 
-[详细见demo，内附base64缩略图生成方法](./code/input-file.html)  
+[详细见demo，内附base64缩略图生成方法](./code/demo2-input-file.html)  
 
 ## 3. `<input>` change事件 
 `change` 事件在表单元素`<input>` `<select>` 经常使用。但它的机制并不是简单的`值改变`就触发。  
@@ -130,10 +130,10 @@ for循环是同步任务，当延时器要执行document.write()的时候，for�
 2 : three
 ```
 
-[详细见demo](./code/for-asych.html)  
+[详细见demo](./code/demo3-for-asych.html)  
 
 
-## 4. html中无法展示回车\r\n的问题
+## 5. html中无法展示回车\r\n的问题
 有时候后端传递回来的字符串回车时用`\n`表示，但在浏览器被当做空白符处理（除非是放置在`<pre></pre>`标签里头）。
 可以考虑用正则替换`\n`为`<br/>`。
 ```
@@ -142,11 +142,36 @@ str.replace(/\n/g, "<br/>");
 ```
 
 
-## 5. Number、parseFloat、parseInt的联系与区别
+## 6. Number、parseFloat、parseInt的联系与区别
 具体可以查看此篇[JavaScript 里Number、parseFloat、parseInt的联系与区别](https://www.jianshu.com/p/55a54abdaef8)。
 此处只给出比较表格和demo。  
 
 ![三种方法的比较](../image/Number-parseInt.png)
 
-[详细见demo](./code/toNumber.html) 
+[详细见demo](./code/demo6-toNumber.html) 
 
+## 7. 自执行匿名函数
+具体可以查看此篇[浅谈自执行函数（立即调用的函数表达式）](https://www.jianshu.com/p/c64bfbcd34c3)。  
+此处只给出常见的应用方式。（可以结合 4. 内容查看）
+```
+// 方式一
+for( var i=0;i<3;i++){
+    (function(lockedIndex){
+        setTimeout(function(){
+            console.log(lockedIndex);
+        }
+        ,300);
+    })(i);
+}
+
+
+// 方式二
+for( var i=0;i<3;i++){
+    setTimeout((function(lockedInIndex){
+        console.log(lockedInIndex);// 输出 "1,2,3"
+    })(i)
+    ,300);
+}
+
+```
+[详细见demo](./code/demo7.html) 

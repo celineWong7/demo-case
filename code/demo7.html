@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>demo7 自执行函数</title>
+</head>
+<body>
+<script type="text/javascript">
+
+/*********************1. 函数声明与执行**********************/
+	// 声明函数fun0
+	function fun0(){
+		console.log("fun0");
+	}
+
+	//执行函数fun0
+	fun0();
+
+
+	// 声明函数fun1 - 变量方式
+	var fun1 = function(){
+		console.log("fun1");
+	}
+
+	// 执行函数fun1
+	fun1(); 
+
+
+
+/***********************2. 函数的猜想*******************************/
+	// 既然函数名加上括号就是执行函数，
+	// 思考：直接取赋值符号右侧的内容直接加个括号，是否也能执行？
+	// function(){
+	// 	console.log("fun1");
+	// }()
+	//以上会报错 line1：Uncaught SyntaxError: Unexpected token (
+
+	//加上函数名呢？
+	// function fun2(){
+	// 	console.log("fun2");
+	// }()
+	// 以上会报错 line3：Uncaught SyntaxError: Unexpected token )
+	
+	function fun3(){
+		console.log("fun3");
+	}(1)
+	// 以上不会报错。但也不会执行。
+
+	// 但可以执行函数fun3
+	fun3();
+
+
+/***************3. 自执行函数**********************/
+	(function fun4(){
+		console.log("fun4");
+	}()); // 方式1 - 建议这种方式
+
+	(function fun5(){
+		console.log("fun5");
+	})(); // 方式2
+
+
+	// 其他操作符
+	true && function () { console.log("true &&"); } ();
+	false || function () { console.log("true ||"); } ();
+	0, function () { console.log("0,"); } ();
+
+	// 一元操作符
+	!function () { console.log("!"); } (); //"!"
+	~function () { console.log("~"); } (); //"~"
+	-function () { console.log("-"); } (); //"-"
+	+function () { console.log("+"); } (); //"+"
+
+
+	// new 关键字
+	new function () { console.log("new"); } //"new"
+	new function (a) { console.log(a); } ("newwwwwwww"); //"newwwwwwww"
+	
+
+	// 赋值符号
+	var i = function () { console.log("output i:"); return 10; } (); // "output i:"
+	var j = function () { console.log("output j:"); return 99;}
+	console.log(i); // 10
+	console.log(j); // ƒ () { console.log("output j:"); return 99;}
+
+	var i2 = (function () { console.log("output i2:"); return 10; } ()); // "output i2:"
+	var i3 = (function () { console.log("output i3:"); return 10; }) (); // "output i3:"
+
+
+
+
+/********************4. 应用************************/
+
+/** 普通的延时器函数 */
+// for( var i=0;i<3;i++){
+// 	setTimeout(function(){
+// 		console.log(i); // 3,3,3
+// 	}
+// 	,300);
+// }
+
+/** 延时器包含在自执行函数中（写法一） */
+// for( var i=0;i<3;i++){
+// 	(function(lockedIndex){
+// 		setTimeout(function(){
+// 			console.log(lockedIndex); // 1,2,3
+// 		}
+// 		,300);
+// 	})(i);
+// }
+
+/** lockedIndex 改成i */
+// for( var i=0;i<3;i++){
+// 	(function(i){
+// 		setTimeout(function(){
+// 			console.log(i); // 1,2,3
+// 		}
+// 		,300);
+// 	})(i);
+// }
+
+/** 自执行函数不带入参数 */
+// for( var i=0;i<3;i++){
+// 	(function(){
+// 		setTimeout(function(){
+// 			console.log(i); // 3,3,3
+// 		}
+// 		,300);
+// 	})();
+// }
+
+/** 自执行函数只带入实参 */
+// for( var i=0;i<3;i++){
+// 	(function(){
+// 		setTimeout(function(){
+// 			console.log(i); // 3,3,3
+// 		}
+// 		,300);
+// 	})(i);
+// }
+
+/** 自执行函数只带入形参 */
+// for( var i=0;i<3;i++){
+// 	(function(i){
+// 		setTimeout(function(){
+// 			console.log(i); // undefined,undefined,undefined
+// 		}
+// 		,300);
+// 	})();
+// }
+
+/*****============写法二==========***/
+/** 延时器调用函数时自执行函数 */
+// for( var i=0;i<3;i++){
+// 	setTimeout((function(i){
+// 		console.log(i); // 1,2,3
+// 	})(i)
+// 	,300);
+// }
+
+/** 自执行函数不带入参数 */
+// for( var i=0;i<3;i++){
+// 	setTimeout((function(){
+// 		console.log(i); // 1,2,3
+// 	})()
+// 	,300);
+// }
+
+
+/** 自执行函数只带入实参 */
+// for( var i=0;i<3;i++){
+// 	setTimeout((function(){
+// 		console.log(i); // 1,2,3
+// 	})(i)
+// 	,300);
+// }
+
+/** 自执行函数只带入形参 */
+// for( var i=0;i<3;i++){
+// 	setTimeout((function(i){
+// 		console.log(i); // undefined,undefined,undefined
+// 	})()
+// 	,300);
+// }
+
+</script>
+
+
+<div id="demo">
+	<p>p1</p>
+	<p>p2</p>
+	<p>p3</p>
+	<p>p4</p>
+	<p>p5</p>
+</div>
+<script type="text/javascript">
+	var oDiv = document.getElementById("demo");
+	var eles = oDiv.getElementsByTagName("p");
+
+	// for ( var k=0; k < eles.length; k++){
+	// 	eles[k].addEventListener('click',function(e){
+	// 		alert("index is: " + k + ", and this ele is: " + eles[k]); // index is: 5, and this ele is:undefined
+	// 	});
+
+	// 	/** 安装事件方式也可以用 onclick 方式。不过这种方式安装多个onclick触发事件时，只执行最后安装的那一个。 */
+	// 	// eles[k].onclick = function(){
+	// 	// 	alert("index is: " + k + ", and this ele is: " + eles[k]);
+	// 	// }
+	// }
+
+	/** 自执行函数方式一 */
+	// for ( var k=0; k < eles.length; k++){
+	// 	(function(k){
+	// 		eles[k].addEventListener('click',function(e){
+	// 			alert("index is: " + k + ", and this ele is: " + eles[k].innerHTML);
+	// 		});
+	// 	})(k);
+	// }
+
+	/** 自执行函数方式二 */
+	// for ( var k=0; k < eles.length; k++){
+	// 	eles[k].addEventListener('click',function(k){
+	// 		return function(e){
+	// 			alert("index is: " + k + ", and this ele is: " + eles[k].innerHTML);
+	// 		}
+	// 	}(k));
+	// }
+
+	/** 讨巧的解决方案 */
+	for ( var k=0; k < eles.length; k++){
+		eles[k].index = k;
+		eles[k].addEventListener('click',function(e){
+			alert("index is: " + this.index + ", and this ele is: " + eles[this.index].innerHTML);
+		});
+	}
+
+
+
+</script>
+
+
+<script type="text/javascript">
+/** 一个闭包的例子：函数作为返回值 */
+	// function setCounter(){
+	// 	var i=0;
+	// 	return function(){
+	// 		console.log(i++);
+	// 	}
+	// }
+
+	// // 调用setCounter函数得到返回值counter1也是一个函数，所以可以执行counter1
+	// var counter1 = setCounter();
+	// counter1(); // 0
+	// counter1(); // 1
+	// counter1(); // 2
+
+	// // couter1和couter2是不同的实例，分别有自己的作用范围内的i
+	// var counter2 = setCounter();
+	// counter2(); // 0
+	// counter2(); // 2
+</script>
+
+</body>
+</html>
