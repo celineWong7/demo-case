@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>marquee 走马灯标签 首次加载会闪跳问题</title>
+	<style type="text/css">
+		marquee{
+			width: 500px;
+			background-color: pink;
+		}
+	</style>
+</head>
+<body>
+
+<marquee scrollamount="10" id="notificationMarquee" class="notification orange" onmouseover="this.stop();" onmouseout="this.start();">
+	<span>系统通知：</span>
+	<span id="marqueeList">
+	</span>
+</marquee>
+
+<!-- 解决闪跳问题 -->
+<!-- <div id="marqueeDiv"></div> -->
+
+<script type="text/javascript">
+var data = [
+	{'id':1, 'title':"春节放假通知 一起去港澳HAPPY购物吧！"},
+	{'id':2, 'title':"年后发红包通知  大家一起红红火火咯！"},
+	{'id':3, 'title':"春游踏青通知 一起去滚蛋谷滚一滚把！"},
+];
+
+
+function fillMarqueeData(){
+	var oList = document.getElementById("marqueeList");
+	var html = '';
+	for(var i=0; i< data.length; i++){
+		console.log(data[i]);
+		html += '<a id="' + data[i].id + '">' + (i+1)+'. ' + data[i].title + '</a>';
+	}
+	oList.innerHTML = html;
+}
+
+setTimeout(fillMarqueeData, 500);
+
+
+function fillMarqueeData2(){
+	var oDiv = document.getElementById("marqueeDiv");
+	var html = '';
+	html += '<marquee scrollamount="10" id="notificationMarquee" class="notification orange" onmouseover="this.stop();" onmouseout="this.start();">';
+	html += '<span>系统通知2：</span>';
+	html += '<span>';
+	for(var i=0; i< data.length; i++){
+		console.log(data[i]);
+		html += '<a id="' + data[i].id + '">' + (i+1)+'. ' + data[i].title + '</a>';
+	}
+	html += '</span>';
+	html += '</marquee>';
+
+	oDiv.innerHTML = html;
+}
+
+setTimeout(fillMarqueeData2, 100);
+	
+</script>
+</body>
+</html>

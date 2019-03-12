@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>比对两个数组</title>
+</head>
+<body>
+<p>比对两个数组ary1，ary2，返回:1.同时属于ary1和ary2的元素；2.属于ary1但不属于ary2的元素</p>
+
+<script type="text/javascript">
+function  analyseTwoAry(list1,list2){
+    var ary1 = list1.split(",");
+    var ary2 = list2.split(",");
+    var commonAry = [];// 共用元素
+    var onlyAry = [];// 仅list1有的元素
+
+    for(var i=0;i<ary1.length;i++){
+        for(var j=0;j<ary2.length;j++){
+            if (ary1[i] == ary2[j]) {
+                commonAry.push(ary1[i]);
+                break;
+            }
+            if(j == ary2.length-1) onlyAry.push(ary1[i]); //遍历ary2到结尾依旧没有相同元素
+        }
+    }
+
+    var obj = {
+    	use:commonAry,
+    	ununse:onlyAry
+    }
+
+    return obj;
+}
+
+
+var list1 = '1,2,3,4,5,6';
+var list2 = '2,3,6,7,8,9';
+var rel = analyseTwoAry(list1,list2);
+console.log(rel);
+</script>
+
+</body>
+</html>

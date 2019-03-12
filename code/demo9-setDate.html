@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>setDate 用来设置一个月的某一天</title>
+</head>
+<body>
+<script type="text/javascript">
+	var d = new Date();// 1. 当前日期
+	console.log(d); // Fri Jan 18 2019 15:30:34 GMT+0800 (中国标准时间)
+	console.log(d.getDate()); // 18
+
+	
+	d.setDate(15);// 2. 设置当前月份的15号
+	console.log(d); // Tue Jan 15 2019 15:27:54 GMT+0800 (中国标准时间)
+
+	d.setDate(0);// 3. 设置上个月最后一天
+	console.log(d); // Mon Dec 31 2018 15:30:58 GMT+0800 (中国标准时间)
+
+	d.setDate(15);// 4. 设置上个月15号。
+	// 注意，此处是因为在第3步骤中，变量d的月份已经变成了上个月，所以此处再设置15号，就变成了上个月15号
+	console.log(d); // Sat Dec 15 2018 15:38:31 GMT+0800 (中国标准时间)
+
+
+/**
+ * 设置上个月的日期
+ * @param {number} n 日期号
+ * (n 的范围最好在所属月份的最大天数内，范围外不报错，会根据月份顺移日期)
+ */
+function setLastMonthDate(n){
+	var d = new Date();
+	d.setDate(0);
+	d.setDate(n);
+	return d;
+}
+console.log(setLastMonthDate(11)); // Tue Dec 11 2018 14:54:14 GMT+0800 (中国标准时间)
+
+
+/**
+ * 获取当前时间前/后的某一天日期
+ * @param  {number} n n天前（负数）/后（正数）
+ * @return {number}   n天前/后的日期
+ */
+function  getSomeoneDate(n) {
+	var d1 = new Date();// 当前日期
+	var d2 = new Date(d1.setDate(d1.getDate()+n)).getDate(); // n天前/后
+	return d2;
+}
+console.log(getSomeoneDate(-2));
+console.log(getSomeoneDate(-1));
+console.log(getSomeoneDate(0));
+console.log(getSomeoneDate(1));
+console.log(getSomeoneDate(2));
+console.log(getSomeoneDate(3));
+console.log(getSomeoneDate(4));
+console.log(getSomeoneDate(5));
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>marquee 标签详细说明</title>
+	<style type="text/css">
+		marquee{
+			width: 500px;
+			background-color: pink;
+		}
+	</style>
+</head>
+<body>
+
+<!-- 常用属性 -->
+<marquee behavior="alternate" loop="2" direction="right" scrollamount="10">
+系统通知：1.xxxxxx; 2.xxxxxxx.
+</marquee>
+
+
+<!-- 回调函数 -->
+<marquee behavior="alternate" loop="2" onstart="alert(99)"  onbounce="MaqueeBounceFun();" onfinish="finishMaqueeFun();"  >
+	系统通知：1.xxxxxx; 2.xxxxxxx.
+</marquee>
+<script type="text/javascript">
+	function MaqueeBounceFun(){
+		alert("我滚到结尾啦！");
+	}
+	function finishMaqueeFun(){
+		alert("滚动结束啦，可以休息啦！");
+	}
+	function startMaqueeFun(){
+		alert("我要开始滚动了哦，眼睛不要眨哦！");
+	}
+</script>
+
+
+<!-- 方法 -->
+<marquee onmouseover="this.stop();" onmouseout="this.start();">
+	系统通知2：1.xxxxxx; 2.xxxxxxx.
+</marquee>
+
+
+
+</body>
+</html>

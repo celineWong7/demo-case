@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>鼠标右键自定义菜单</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#box div{
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+			background-color: pink;
+			margin: 5px;
+		}
+
+
+		.wrap-ms-right{
+	list-style: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 9999;
+	padding: 5px 0;
+	min-width: 80px;
+	margin: 0;
+	display: none;
+	/*font-family: "微软雅黑";*/
+	font-size: 14px;
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, .15);
+	box-sizing: border-box;
+	border-radius: 4px;
+/*	-webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	-ms-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	-o-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);*/
+}
+.ms-item{
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+}
+.ms-item:hover{
+	background-color: #343a40;
+	color: #FFFFFF;
+}
+	</style>
+</head>
+<body>
+<div id="box">
+	<div id="div1"></div>
+	<div id="div2"></div>
+	<div id="div3"></div>
+	<div id="div4"></div>
+</div>
+<script src="./jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+setMouseRight("#box div");
+setMouseRight("#box div");
+
+
+function setMouseRight(selector){
+	if ($(".wrap-ms-right").length < 1) {
+		var n = $("<div class='wrap-ms-right'><li class='ms-item'>设置为主图</li></div>");
+		n.prependTo("body");
+	}
+
+	$(selector).on("contextmenu",function(event){
+		var e = event || window.event;
+		$(".wrap-ms-right").css({
+            "display": "block",
+            "top": e.pageY + "px",
+            "left": e.pageX + "px"
+        });
+		$(".wrap-ms-right").attr("pId",$(this).attr("id"));
+		return false;
+	});
+
+	$(".wrap-ms-right").on("click","li",function(){
+		console.log("点中啦",$(this).closest(".wrap-ms-right").attr("pid"));
+		$(".wrap-ms-right").hide();
+	});
+
+	$("body").click(function() {
+        $(".wrap-ms-right").hide();
+    });
+}
+
+
+
+
+ //    	var n = $("<div class='wrap-ms-right'><li class='ms-item'>设置为主图</li></div>");
+	// n.prependTo("body");
+
+	// $("#box div").on("contextmenu",function(){
+	// 	var self = this;
+	// 	var e = event || window.event;
+	// 	// var left = e.clientX + 'px';
+	// 	// var right = e.clientY + 'px';
+	// 	$(".wrap-ms-right").css({
+ //                        "display": "block",
+ //                        "top": e.pageY + "px",
+ //                        "left": e.pageX + "px"
+ //                    });
+	// 	n.attr("pId",$(self).attr("id"));
+	// 	// console.log(e.clientX,e.pageX,e.clientY,e.pageY);
+
+	// 	return false;
+		
+	// });
+
+	// $(".wrap-ms-right").on("click","li",function(){
+	// 	console.log("点中啦",$(this).closest(".wrap-ms-right").attr("pid"));
+	// 	$(".wrap-ms-right").hide();
+	// });
+
+	// $("body").click(function() {
+ //        $(".wrap-ms-right").hide();
+ //    })
+	
+</script>
+</body>
+</html>

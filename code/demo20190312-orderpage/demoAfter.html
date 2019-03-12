@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>一个简易版的外面选菜页面</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<script type="text/javascript" src="jq.js"></script>
+	<style type="text/css">
+	*{margin: 0;padding: 0;box-sizing: border-box;}
+	html,body{width: 100%;height: 100%}
+	ul li{list-style: none;}
+	.box{width: 100%;height: 100%}
+	.menu-left{background-color: #f8f8f8;width: 20%;float: left;height: 100%;font-size: 14px;text-align: center;}
+	.menu-left li{height: 40px;line-height: 40px;}
+	.menu-left .on{color: red;background-color: #fff}
+	.menu-right{width: 80%;height:100%;float: left;overflow: auto;}
+	.menu-right li{border-bottom: 1px solid gray;padding: 15px;font-size: 14px}
+	.menu-right p{color: pink}
+</style>
+</head>
+<body>
+	<div class="box">
+		<ul class="menu-left">
+			<li class="on">猪脚饭1</a></li>
+			<li>猪脚饭2</a></li>
+			<li>猪脚饭3</a></li>
+			<li>猪脚饭4</a></li>
+			<li>猪脚饭5</a></li>
+			<li>猪脚饭6</a></li>
+			<li>猪脚饭7</a></li>
+			<li>猪脚饭8</a></li>
+		</ul>
+		<div class="menu-right">
+		<ul id="listUl">
+			<li>
+				<p>分类名1</p>
+				<div>猪脚饭</div>
+			</li>
+			<li>
+				<p>分类名2</p>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+			</li>
+			<li>
+				<p>分类名3</p>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+			</li>
+			<li>
+				<p>分类名4</p>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+			</li>
+			<li>
+				<p>分类名5</p>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+			</li>
+			<li>
+				<p>分类名6</p>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+			</li>
+			<li>
+				<p>分类名7</p>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+			</li>
+			<li>
+				<p>分类名8</p>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+				<div>猪脚饭</div>
+			</li>
+		</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+
+			// 设置右侧分类合适的滚动高度
+			console.log("整个滚动高度：" + $(".menu-right").get(0).scrollHeight);
+			console.log("页面高度（屏幕高度）：" + $(".menu-right").get(0).offsetHeight);
+			console.log("最后一个分类高度（包含padding）：" + $("#listUl li:last-child").height());
+
+			$("#listUl").css("height",$(".menu-right").get(0).scrollHeight + $(".menu-right").get(0).offsetHeight - $("#listUl li:last-child").outerHeight());
+
+			
+			// 获取右侧每个分类的距离顶部的高度
+			var ary=[];
+			$(".menu-right li").each(function(){
+				ary.push($(this).offset().top);
+			});
+			// 给左侧菜单添加对应分了的scrollTop值
+			$.each(ary,function(i,val){
+				$(".menu-left li").eq(i).attr('scroll',val);
+			});
+
+			// 左侧菜单点击事件
+			$(".menu-left").on('click','li',function(){
+				$(".menu-right").attr("noscroll",true); // 禁止右侧滚动
+				$(this).addClass('on');
+				$(this).siblings('li').removeClass('on');
+				$(".menu-right").animate({scrollTop:$(this).attr('scroll')},200,function(){
+					$(".menu-right").attr("noscroll",false); // 启动右侧滚动
+				});
+				console.log($(this).attr('scroll'),$(this).get(0).scrollTop);
+			});
+
+			// 右侧分类滚动事件
+			$(".menu-right").scroll(function(){
+				if ($(this).attr("noscroll") == "true") return false; // 根据标志判断是否执行滚动事件代码
+				var scrTop=$(this).scrollTop();
+				var index;
+				for(var i=0;i<ary.length;i++){
+					if(scrTop >= ary[i]){
+						index=i;
+					}
+				}
+				$(".menu-left li").eq(index).addClass('on');
+				$(".menu-left li").eq(index).siblings('li').removeClass('on');
+				$(".menu-right li").eq(index).addClass('on');
+				$(".menu-right li").eq(index).siblings('li').removeClass('on');
+			});
+		});
+	</script>
+</body>
+</html>
